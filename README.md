@@ -55,7 +55,9 @@ and updates device statuses **in real time** on the dashboard.
 - MongoDB
 
 
-📂 Project Structure
+## 📂 Project Structure
+
+```text
 network-app/
 ├── backend/
 │   ├── models/           # Mongoose schemas
@@ -64,5 +66,5 @@ network-app/
 │   └── server.js         # Socket.io & App entry point
 └── frontend/
     └── src/
-        ├── components/ Dashboard.js  # Main React dashboard
-        └── aservices/ Api.js        # Axios configuration
+        ├── Dashboard.js  # Main React dashboard
+        └── api.js        # Axios configuration
