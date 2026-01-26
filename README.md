@@ -1,78 +1,107 @@
-Network Device Monitoring System
+# Network Device Monitoring System
 
-This project was designed to simulate a lightweight infrastructure monitoring system,
-similar to tools used in real-world operations and DevOps environments.
+A lightweight infrastructure monitoring system inspired by real-world
+operations and DevOps environments.
 
-It is a real-time network monitoring dashboard built with the MERN stack
-(MongoDB, Express, React, Node.js) and Socket.IO.
+This project is a **real-time network monitoring dashboard** built with the
+**MERN stack** (MongoDB, Express, React, Node.js) and **Socket.IO**.
 
-The application monitors device availability using ICMP ping and TCP port checks,
-and updates device statuses in real time on the dashboard.
+It monitors device availability using **ICMP ping** and **TCP port checks**,
+and updates device statuses **in real time** on the dashboard.
 
-🚀 Features
+---
 
-⚡ Real-time Updates
+## 🚀 Features
+
+### ⚡ Real-time Updates
 Device status changes are pushed instantly to the UI using WebSockets (Socket.IO).
 
-📡 Network Health Monitoring
+### 📡 Network Health Monitoring
+- ICMP ping checks to determine device availability
+- TCP port connectivity checks for service-level monitoring
 
-ICMP Ping checks to determine device availability
+### 🗄 Device Management
+Devices are stored and managed using a structured **Mongoose schema**.
 
-TCP Port connectivity checks for service-level monitoring
-
-🗄 Device Management
-Devices are stored and managed using a structured Mongoose schema.
-
-🎨 Visual Health Indicators
+### 🎨 Visual Health Indicators
 Color-coded device status:
+- 🟢 Green: Online
+- 🔴 Red: Offline
 
-🟢 Green: Online
+### ⏱ Scheduled Monitoring
+Periodic health checks executed via **cron jobs** on the backend.
 
-🔴 Red: Offline
+### 🐳 Dockerized Development Environment
+Frontend, backend, and database are fully containerized using **Docker Compose**.
 
-⏱ Scheduled Monitoring
-Periodic health checks executed via cron jobs on the backend.
+---
 
-🐳 Dockerized Development Environment
-Frontend, backend, and database are fully containerized using Docker Compose.
+## 💡 Why I Built This Project
 
- Tech Stack
-Frontend:
-React
-Axios
-Socket.IO Client
+I completed the **ICT60220 – Advanced Diploma of Information Technology
+(Network Engineering)** and have been self-studying **full-stack web
+development using the MERN stack**.
 
-Backend:
-Node.js
-Express
-MongoDB (Mongoose)
-Socket.IO
-node-cron
-ping (ICMP)
-native net module (TCP port checks)
+To bridge my background in **network engineering** with **modern web
+development**, I wanted to build a practical application that reflects
+real-world infrastructure and operations work.
 
-Database:
-MongoDB
+This project was created to:
+- Combine **network-level knowledge** (ICMP ping, TCP port checks) with
+  **web application development**
+- Practice building a **real-time system** using WebSockets (Socket.IO)
+- Simulate how **network and service monitoring tools** work in production
+  environments
+- Demonstrate my ability to design and implement a **full-stack MERN
+  application** from scratch
 
-DevOps / Tooling:
-Docker
-Docker Compose
+---
 
-📂 Project Structure
+## 🛠 Tech Stack
+
+### Frontend
+- React
+- Axios
+- Socket.IO Client
+
+### Backend
+- Node.js
+- Express
+- MongoDB (Mongoose)
+- Socket.IO
+- node-cron
+- ping (ICMP)
+- Native `net` module (TCP port checks)
+
+### Database
+- MongoDB
+
+### DevOps / Tooling
+- Docker
+- Docker Compose
+
+---
+
+## 📂 Project Structure
+
+```text
 network-app/
 ├── docker-compose.yml
 ├── backend/
-│   ├── models/            # Mongoose schemas
-│   ├── routes/            # REST API endpoints
-│   ├── services/          # Ping & port monitoring logic
-│   ├── server.js          # Express & Socket.IO entry point
+│   ├── models/        # Mongoose schemas
+│   ├── routes/        # REST API endpoints
+│   ├── services/      # Ping & port monitoring logic
+│   ├── server.js      # Express & Socket.IO entry point
 │   └── Dockerfile
 └── frontend/
     ├── src/
     │   ├── components/
-    │   │   └── Dashboard.jsx   # Main React dashboard
-    │   └── api.js              # Axios configuration
+    │   │   └── Dashboard.jsx  # Main React dashboard
+    │   └── api.js             # Axios configuration
     └── Dockerfile
+
+
+
 
 
 🐳 Running with Docker
