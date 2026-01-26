@@ -11,13 +11,15 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
+const mongoURI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/networkDashboard";
+
 app.use(cors());
 app.use(express.json());
 app.use("/api/devices", deviceRoutes);
 
 // MongoDB
-mongoose.connect("mongodb://localhost:27017/networkDashboard")
-    .then(() => console.log("MongoDB Connected"))
+mongoose.connect(process.env.MONGO_URI ||"mongodb://localhost:27017/networkDashboard")
+    .then(() => console.log(`MongoDB Connected: ${MONGO_URI}`))
     .catch(err => console.error(err));
 
 // Socket.IO
