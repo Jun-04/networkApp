@@ -36,39 +36,26 @@ Periodic health checks executed via cron jobs on the backend.
 🐳 Dockerized Development Environment
 Frontend, backend, and database are fully containerized using Docker Compose.
 
-🛠 Tech Stack
-Frontend
-
+ Tech Stack
+Frontend:
 React
-
 Axios
-
 Socket.IO Client
 
-Backend
-
+Backend:
 Node.js
-
 Express
-
 MongoDB (Mongoose)
-
 Socket.IO
-
 node-cron
-
 ping (ICMP)
-
 native net module (TCP port checks)
 
-Database
-
+Database:
 MongoDB
 
-DevOps / Tooling
-
+DevOps / Tooling:
 Docker
-
 Docker Compose
 
 📂 Project Structure
@@ -87,37 +74,31 @@ network-app/
     │   └── api.js              # Axios configuration
     └── Dockerfile
 
-    🐳 Running with Docker
+
+🐳 Running with Docker
 Prerequisites
-
 Docker
-
 Docker Compose
 
 Start the application
 docker-compose up --build
 
-
 This will start the following services:
+| Service  | Description            | Port  |
+| -------- | ---------------------- | ----- |
+| mongodb  | MongoDB database       | 27017 |
+| backend  | Node.js / Express API  | 5000  |
+| frontend | React dashboard (Vite) | 5173  |
 
-Service	Description	Port
-mongodb	MongoDB database	27017
-backend	Node.js / Express API	5000
-frontend	React dashboard (Vite)	5173
+
 🎯 Project Purpose
-
 This project was built to demonstrate:
-
 Full-stack MERN application development
-
 Real-time communication using WebSockets
-
 Basic network and infrastructure monitoring concepts
-
 Containerized development workflows with Docker
 
 It reflects how simple monitoring systems are structured in production environments.
 
 📜 License
-
 MIT License
