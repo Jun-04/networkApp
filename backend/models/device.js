@@ -1,11 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const deviceSchema = new mongoose.Schema({
   name: String,
   ip: String,
-  port: Number,
-  status: { type: String, default: 'unknown' },
-  lastPing: Date,
+  ports: [Number],
+  status: { type: String, default: "UNKNOWN" },
+  lastPing: Number,
+  portStatus: Object,
+  lastChecked: Date,
 });
 
 export default mongoose.model("Device", deviceSchema);
