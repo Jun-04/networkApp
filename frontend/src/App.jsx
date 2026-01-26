@@ -1,8 +1,12 @@
-import React from 'react'
-import Dashboard from './components/Dashboard'
+import Dashboard from "./components/Dashboard";
 
-export default function App() {
-  return (
-    <Dashboard />
-  )
+function App() {
+    return (
+        <div>
+            <h1>Network Dashboard</h1>
+            <Dashboard />
+        </div>
+    );
 }
+
+export default App;

@@ -1,53 +1,53 @@
-import React, { useEffect, useState } from 'react'; // Reactのインポート修正
-import axios from 'axios';
-import { io } from 'socket.io-client'; // Socketインスタンス作成用に io を使用
+import { useEffect, useState } from "react";
+import api from "../services/api.js";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:5000");
 
 export default function Dashboard() {
   const [devices, setDevices] = useState([]);
 
   useEffect(() => {
-    // 1. APIから初期データを取得
-    axios.get('http://localhost:5000/api/devices')
-      .then(res => setDevices(res.data))
-      .catch(err => console.log(err));
+    api.get("/devices").then(res => setDevices(res.data));
 
-    // 2. Socket.ioの接続を確立
-    const socket = io('http://localhost:5000');
-
-    // 3. サーバーからの更新イベントを待機
-    socket.on('deviceStatusUpdate', (update) => {
-      setDevices((prev) => 
-        prev.map((d) => (d._id === update.id ? { ...d, status: update.status } : d))
-      );
+    socket.on("deviceStatusUpdate", (update) => {
+      setDevices(prev => prev.map(d => d._id === update.id ? { ...d, ...update } : d));
     });
 
-    // 4. クリーンアップ（コンポーネントが消える時に接続を切る）
-    return () => socket.disconnect();
-  }, []); // 正しい useEffect の形
+    // クリーンアップ関数を追加
+    return () => {
+      socket.off("deviceStatusUpdate");
+    };
+  }, []);
 
   return (
-    <div style={{ padding: 30 }}>
-      <h1>Network Dashboard</h1>
-      <table border="1" style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
+    <div style={{ padding: 20 }}>
+      <h2>Network Monitoring Dashboard</h2>
+
+      <table border="1" cellPadding="10">
         <thead>
           <tr>
             <th>Name</th>
             <th>IP</th>
-            <th>Port</th>
             <th>Status</th>
+            <th>Ping</th>
+            <th>Ports</th>
           </tr>
         </thead>
         <tbody>
           {devices.map(d => (
-            <tr key={d._id}>
+            <tr key={d._id} style={{ color: d.status === "UP" ? "green" : "red" }}>
               <td>{d.name}</td>
               <td>{d.ip}</td>
-              <td>{d.port}</td>
-              <td style={{ 
-                color: d.status === "online" ? "green" : "red",
-                fontWeight: 'bold' 
-              }}>
-                {d.status}
+              <td>{d.status}</td>
+              <td>{d.lastPing} ms</td>
+              <td>
+                {d.portStatus &&
+                  Object.entries(d.portStatus).map(([p, ok]) => (
+                    <div key={p}>
+                      Port {p}: {ok ? "OPEN" : "CLOSED"}
+                    </div>
+                  ))}
               </td>
             </tr>
           ))}

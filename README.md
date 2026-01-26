@@ -1,18 +1,68 @@
-Network Device Monitoring System
+# Network Device Monitoring System
 
-A real-time network dashboard built with the MERN stack (MongoDB, Express, React, Node.js) and Socket.io. This application monitors device connectivity and updates statuses in real-time.
-🚀 Features
+This project was designed to simulate a lightweight infrastructure
 
-    Real-time Updates: Device statuses update instantly on the dashboard via WebSockets.
+monitoring system similar to tools used in real-world operations environments.
 
-    Device Management: Managed through a robust Mongoose schema.
 
-    Visual Health Check: Color-coded status indicators (Green for Online, Red for Offline).
+A real-time **network monitoring dashboard** built with the **MERN stack**
+(MongoDB, Express, React, Node.js) and **Socket.IO**.
 
-🛠 Tech Stack
+This application monitors **device availability using ICMP ping and TCP port checks**  
+and updates device statuses **in real time** on the dashboard.
 
-    Frontend: React, Axios, Socket.io-client
 
-    Backend: Node.js, Express, Mongoose, Socket.io
 
-    Database: MongoDB
+## 🚀 Features
+
+- ⚡ **Real-time Updates**  
+  Device status changes are pushed instantly to the UI using WebSockets (Socket.IO).
+
+- 📡 **Network Health Monitoring**  
+  - ICMP Ping checks to determine device availability  
+  - TCP Port connectivity checks for service-level monitoring
+
+- 🗄 **Device Management**  
+  Devices are stored and managed using a structured **Mongoose schema**.
+
+- 🎨 **Visual Health Indicators**  
+  Color-coded device status:
+  - 🟢 Green: Online
+  - 🔴 Red: Offline
+
+- ⏱ **Scheduled Monitoring**  
+  Periodic health checks executed via cron jobs on the backend.
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- React
+- Axios
+- Socket.IO Client
+
+### Backend
+- Node.js
+- Express
+- MongoDB (Mongoose)
+- Socket.IO
+- node-cron
+- ping (ICMP)
+- native `net` module (TCP port checks)
+
+### Database
+- MongoDB
+
+
+📂 Project Structure
+network-app/
+├── backend/
+│   ├── models/           # Mongoose schemas
+│   ├── routes/           # REST API endpoints
+│   ├── services/         # Monitoring & Port checking logic
+│   └── server.js         # Socket.io & App entry point
+└── frontend/
+    └── src/
+        ├── components/ Dashboard.js  # Main React dashboard
+        └── aservices/ Api.js        # Axios configuration
