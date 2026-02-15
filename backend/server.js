@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
+import "dotenv/config";
 
 import deviceRoutes from "./routes/deviceRoutes.js";
-import { runMonitoring } from "./services/monitoringService.js"; // パスは適宜調整してください
+import { runMonitoring } from "./services/monitoringService.js"; 
 
 const app = express();
 const server = http.createServer(app);
@@ -18,8 +19,8 @@ app.use(express.json());
 app.use("/api/devices", deviceRoutes);
 
 // MongoDB
-mongoose.connect(process.env.MONGO_URI ||"mongodb://localhost:27017/networkDashboard")
-    .then(() => console.log(`MongoDB Connected: ${MONGO_URI}`))
+mongoose.connect(mongoURI ||"mongodb://localhost:27017/networkDashboard")
+    .then(() => console.log(`MongoDB Connected: ${mongoURI}`))
     .catch(err => console.error(err));
 
 // Socket.IO
@@ -28,7 +29,7 @@ io.on("connection", (socket) => {
 });
 
 // server running
-server.listen(5000, async () =>{ console.log("Server running on port 5000")
+server.listen(5001, async () =>{ console.log("Server running on port 5001")
 console.log("Starting initial monitoring...");
   await runMonitoring(io); // 起動時に1回実行
 

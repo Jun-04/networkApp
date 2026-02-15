@@ -1,6 +1,7 @@
 import ping from "ping";
 import Device from "../models/device.js";
-import { checkPort } from "./portService.js"; // ※もし無ければ下にコードを書きます
+import { checkPort } from "./portService.js"; 
+import History from "../models/history.js";
 
 export async function runMonitoring(io) {
   try {
@@ -26,6 +27,12 @@ export async function runMonitoring(io) {
       d.lastChecked = new Date();
 
       await d.save();
+      await History.create({
+          deviceId: d._id,
+          status: d.status,
+          pingTime: d.lastPing,
+      })
+
 
       // 4. Socket.ioでフロントエンドに通知
       io.emit("deviceStatusUpdate", {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../services/api.js";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:5001");
 
 export default function Dashboard() {
   const [devices, setDevices] = useState([]);
@@ -10,9 +10,12 @@ export default function Dashboard() {
   useEffect(() => {
     api.get("/devices").then(res => setDevices(res.data));
 
-    socket.on("deviceStatusUpdate", (update) => {
-      setDevices(prev => prev.map(d => d._id === update.id ? { ...d, ...update } : d));
-    });
+socket.on("deviceStatusUpdate", (update) => {
+  setDevices(prev => prev.map(d => 
+    // d._id と update.id (または update._id) を比較
+    (d._id === update.id || d._id === update._id) ? { ...d, ...update } : d
+  ));
+});
 
     // クリーンアップ関数を追加
     return () => {
