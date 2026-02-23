@@ -1,4 +1,13 @@
 # Network Device Monitoring System (Hybrid Infrastructure Edition)
+
+# Network Device Monitoring System (Hybrid Infrastructure Edition)
+
+![Dashboard Screenshot](./screenshots/dashboard.jpg)
+*Real-time dashboard reflecting live data from physical hardware.*
+
+![Physical Lab Setup](./screenshots/lab_setup.jpg)
+*Lab environment: Integration with Cisco 8000 Series via SNMP.*
+
 A lightweight infrastructure monitoring system inspired by real-world
 operations and DevOps environments.
 
