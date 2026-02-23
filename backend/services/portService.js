@@ -2,7 +2,7 @@ import  net from "net";
 
 export function checkPort(ip, port, timeout = 2000 ) {
     return new Promise(( resolve ) => {
-const socket = new net.socket();
+const socket = new net.Socket();
 socket.setTimeout(timeout);
 
 socket.on("connect", () => {

@@ -1,7 +1,30 @@
 import ping from "ping";
+import snmp from "net-snmp";
 import Device from "../models/device.js";
 import { checkPort } from "./portService.js"; 
 import History from "../models/history.js";
+
+const getSnmpData = (ip, community) => {
+  return new Promise((resolve) =>{
+const session = snmp.createSession(ip, community);
+const oids = [
+  "1.3.6.1.2.1.1.5.0", // Hostname
+      "1.3.6.1.2.1.2.1.0"  // Total Ports
+];
+
+session.get(oids, (error, varbinds) => {
+      if (error) {
+        resolve(null);
+      } else {
+        resolve({
+          hostname: varbinds[0].value.toString(),
+          totalPorts: varbinds[1].value.toString()
+        });
+      }
+      session.close();
+    });
+  });
+};
 
 export async function runMonitoring(io) {
   try {
@@ -11,6 +34,14 @@ export async function runMonitoring(io) {
     await Promise.all(devices.map(async (d) => {
       // 1. Pingチェック
       const res = await ping.promise.probe(d.ip);
+      console.log(`Device: ${d.ip} | Ping Alive: ${res.alive} | Time: ${res.time}`);
+
+      //SNMP
+      let snmpInfo = null;
+      if(res.alive) {
+        console.log(`Checking SNMP for ${d.ip}...`); // 【デバッグ2】
+        snmpInfo = await getSnmpData(d.ip, "public");
+      }
       
       // 2. ポートチェック
       const portResults = {};
@@ -26,12 +57,22 @@ export async function runMonitoring(io) {
       d.portStatus = portResults;
       d.lastChecked = new Date();
 
+     // ✅ snmpデータの反映（snmpInfoがある時だけ代入する）
+      if (snmpInfo) {
+        console.log(`✅ SNMP Success for ${d.ip}:`, snmpInfo);
+        d.hostname = snmpInfo.hostname;
+        d.totalPorts = snmpInfo.totalPorts;
+      } else {
+        console.log(`❌ SNMP Failed (Timeout or Community mismatch) for ${d.ip}`);
+        // 失敗した時に値を空にするか、維持するかはお好みで
+      }
+
       await d.save();
       await History.create({
           deviceId: d._id,
           status: d.status,
           pingTime: d.lastPing,
-      })
+      });
 
 
       // 4. Socket.ioでフロントエンドに通知
@@ -41,6 +82,8 @@ export async function runMonitoring(io) {
         lastPing: d.lastPing,
         portStatus: d.portStatus,
         lastChecked: d.lastChecked,
+        hostname: d.hostname,
+        totalPorts: d.totalPorts
       });
     }));
     

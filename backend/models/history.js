@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const historySchema = new mongoose.Schema({
-    deviceID: {
+    deviceId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Device",
         required: true
     },
     status:{
         type: String,
-        enum: ["online", "offline", "UNKNOWN"],
+        enum: ["UP", "DOWN", "UNKNOWN"],
         required: true
     },
     pingTime: Number,
