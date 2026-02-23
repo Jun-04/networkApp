@@ -1,5 +1,4 @@
-# Network Device Monitoring System
-
+# Network Device Monitoring System (Hybrid Infrastructure Edition)
 A lightweight infrastructure monitoring system inspired by real-world
 operations and DevOps environments.
 
@@ -9,31 +8,35 @@ This project is a **real-time network monitoring dashboard** built with the
 It monitors device availability using **ICMP ping** and **TCP port checks**,
 and updates device statuses **in real time** on the dashboard.
 
+
 ---
 
 ## 🚀 Features
 
-### ⚡ Real-time Updates
-Device status changes are pushed instantly to the UI using WebSockets (Socket.IO).
+### 📡 Physical Hardware Integration (New!)
+
+-Real-world Testing: Fully integrated with Cisco 8000 Series devices.
+-SNMP Data Retrieval: Automates the extraction of sysName (hostname) and ifNumber (active port count) directly from hardware via SNMP.
+-Secure Management: Configured and validated SSH access for secure device administration and troubleshooting.
+
+### ⚡ Real-time Operations
+
+-Instant Status Updates: Device availability and performance metrics are pushed instantly to the UI using Socket.IO.
+-Visual Health Indicators: Color-coded status (🟢 UP / 🔴 DOWN) for at-a-glance monitoring.
 
 ### 📡 Network Health Monitoring
 - ICMP ping checks to determine device availability
 - TCP port connectivity checks for service-level monitoring
 
-### 🗄 Device Management
-Devices are stored and managed using a structured **Mongoose schema**.
-
-### 🎨 Visual Health Indicators
-Color-coded device status:
-- 🟢 Green: Online
-- 🔴 Red: Offline
-
 ### ⏱ Scheduled Monitoring
 Periodic health checks executed via **cron jobs** on the backend.
 
 ### 🐳 Dockerized Development Environment
-Frontend, backend, and database are fully containerized using **Docker Compose**.
+Modern DevOps Workflow
 
+-Full Containerization: Entire stack (Frontend, Backend, MongoDB) orchestrated via Docker Compose.
+
+-Automated Polling: Scheduled background services to scan network infrastructure every 60 seconds.
 ---
 
 ## 💡 Why I Built This Project
@@ -58,6 +61,10 @@ This project was created to:
 ---
 
 ## 🛠 Tech Stack
+
+### Infrastructure & Networking
+- Hardware: Cisco 8000 Series
+- Protocols: SNMP (via net-snmp), ICMP (Ping), SSH, TCP/IP
 
 ### Frontend
 - React
@@ -88,16 +95,14 @@ This project was created to:
 network-app/
 ├── docker-compose.yml
 ├── backend/
-│   ├── models/        # Mongoose schemas
-│   ├── routes/        # REST API endpoints
-│   ├── services/      # Ping & port monitoring logic
-│   ├── server.js      # Express & Socket.IO entry point
+│   ├── models/          # Mongoose schemas
+│   ├── services/        # SNMP, Ping & port monitoring logic
+│   ├── server.js        # Express & Socket.IO entry point
 │   └── Dockerfile
 └── frontend/
     ├── src/
-    │   ├── components/
-    │   │   └── Dashboard.jsx  # Main React dashboard
-    │   └── api.js             # Axios configuration
+    │   └── components/
+    │       └── Dashboard.jsx  # Main React dashboard
     └── Dockerfile
 
 
