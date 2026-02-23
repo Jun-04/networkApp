@@ -1,13 +1,14 @@
 # Network Device Monitoring System (Hybrid Infrastructure Edition)
 
-![Dashboard Screenshot](./screenshots/dashboard.jpg)
-*Real-time dashboard reflecting live data from physical hardware.*
-
-![Physical Lab Setup](./screenshots/hardware.jpg)
-*Lab environment: Integration with Cisco 8000 Series via SNMP.*
-
-A lightweight infrastructure monitoring system inspired by real-world
-operations and DevOps environments.
+<div align="center">
+  <img src="./screenshots/dashboard.jpg" width="45%" />
+  <img src="./screenshots/hardware.jpg" width="45%" />
+</div>
+<div align="center">
+  <i>Left: Monitoring Dashboard | Right: Physical Cisco 8000 Setup</i>
+</div>
+<br>
+A lightweight infrastructure monitoring system inspired by real-world operations and DevOps environments.
 
 This project is a **real-time network monitoring dashboard** built with the
 **MERN stack** (MongoDB, Express, React, Node.js) and **Socket.IO**.
